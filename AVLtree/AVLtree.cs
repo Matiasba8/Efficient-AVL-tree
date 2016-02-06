@@ -104,8 +104,7 @@ namespace AVLtree
         // SEARCHING
         public bool Contains(T value)
         {
-            if (Find(value, root) == null) return false;
-            else return true;
+            return Find(value, root) != null;
         }
 
         // SEARCHING METHOD
@@ -117,22 +116,18 @@ namespace AVLtree
             }
 
             int compare = target.CompareTo(current.value);
-            if (compare < 0)
-            {
-                if (compare == 0) return current;
-                else
-                {
-                    return Find(target, current.left);
-                }
-            }
 
+            if (compare == 0)
+            {
+                return current;
+            }
+            else if (compare < 0)
+            {
+                return Find(target, current.left);
+            }
             else
             {
-                if (compare == 0) return current;
-                else
-                {
-                    return Find(target, current.right);
-                }
+                return Find(target, current.right);
             }
         }
 
@@ -196,7 +191,7 @@ namespace AVLtree
         {
             int currCount = count;
             root = Remove(root, value);
-            return (currCount != count);
+            return currCount != count;
         }
 
         // REMOVAL METHOD
@@ -273,6 +268,7 @@ namespace AVLtree
                             stack.Push(current.right);
                         }
                     }
+
                     else
                     {
                         stack.Push(current.left);
